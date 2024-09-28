@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -11,24 +12,34 @@ def index(request):
     # if request.method == "GET":
     form = UserCreationForm()
 
+    # all,get,filter
+    print(User.objects.all())
+    # print(User.objects.get(username="tjtyjty"))
+    # print(User.objects.filter(username="tjtyjty"))
+
     if request.method == "POST":
         print(request.POST)
         username = request.POST.get("username")
         password1 = request.POST.get("password1")
         password2 = request.POST.get("password2")
 
-        # 比對密碼長度
+        # 比對密碼長度8,比對密碼是否相同
         if len(password1) != 8 or len(password2) != 8:
             msg = "密碼長度不正確"
 
         elif password1 != password2:
             msg = "兩次密碼不一樣"
 
-        # 比對密碼是否相同
+        else:
+            # 比對使用者是否存在
+            if User.objects.filter(username=username):
+                msg = "帳號已存在!"
 
-        # 比對使用者是否存在
-
-        # 註冊使用者
+            # 註冊使用者
+            else:
+                user = User.objects.create_user(username=username, password=password1)
+                user.save()
+                msg = "註冊成功!"
 
     return render(request, "user/register.html", {"form": form, "msg": msg})
     # return render(request, "user/register.html")
