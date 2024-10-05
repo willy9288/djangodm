@@ -19,7 +19,7 @@
 
         .username {
             color: #CC6600;
-
+            text-decoration: none;
         }
 
         .button {
@@ -47,7 +47,7 @@
     <div id="navbar">
         {% if user.is_authenticated %}
         使用者:<span class="username">
-            <a href="{% url 'profile' %}">{{user.username}}</a>
+            <a class="username" href="{% url 'profile' %}">{{user.username}}</a>
         </span>
 
         <a class="button" href="{% url 'logout' %}">登出</a>
@@ -56,7 +56,7 @@
         <a class="button" href="{% url 'login' %}">登入</a>
         <a style="background-color: #CCCCCC;" class="button" href="{% url 'register' %}">註冊</a>
         {% endif %}
-        <a style="background-color: #CCFFFF;" class="button" href="/{% url 'todolist' %}">回首頁</a>
+        <a style="background-color: #CCFFFF;" class="button" href="{% url 'todolist' %}">回首頁</a>
 
     </div>
     <div id="container">

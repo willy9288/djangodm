@@ -5,6 +5,7 @@ from .forms import TodoForm
 # Create your views here.
 
 
+# 新增代辦
 def create_todo(request):
     msg = ""
     user = request.user
@@ -29,17 +30,20 @@ def create_todo(request):
     return render(request, "todo/create-todo.html", {"form": form, "msg": msg})
 
 
+# 檢視代辦
 def todo(request, id):
     msg = ""
     todo = None
     user = request.user
+
     try:
         todo = Todo.objects.get(id=id, user=user)
+        form = TodoForm(instance=todo)
     except Exception as e:
         print(e)
         msg = "編號錯誤"
 
-    return render(request, "todo/todo.html", {"todo": todo, "msg": msg})
+    return render(request, "todo/todo.html", {"form": form, "todo": todo, "msg": msg})
 
 
 def todolist(request):

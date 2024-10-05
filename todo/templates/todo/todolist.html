@@ -5,9 +5,9 @@
 <head>
     <style>
         .todo {
-            background-color: azure;
-            width: 300px;
             display: inline-block;
+            width: 300px;
+            background-color: azure;
             margin: 12px;
             border-radius: 10px;
         }
@@ -16,6 +16,7 @@
             font-size: 24px;
             margin: 6px 0;
             color: #000066;
+            text-decoration: none;
         }
 
         .text {
@@ -38,6 +39,10 @@
             text-align: left;
             margin: 6px;
         }
+
+        .completed {
+            margin-bottom: 3px;
+        }
     </style>
 </head>
 {% endblock %}
@@ -49,15 +54,23 @@
 <div class="todo">
     <div class="created">{{todo.created}}</div>
     <div class="title">
-        <a href="{% url 'todo' todo.id %}">{{todo.title}}</a>
+        <a class="title" href="{% url 'todo' todo.id %}">{{todo.title}}
+            {% if todo.important %}
+            <span style="color: #CC3333; font-size: 16px;">(重要)</span>
+            {% endif %}
+        </a>
+
     </div>
 
-    <div class="text">{{todo.text}}</div>
-    <div class="imp">
-        {% if todo.important %}
-        <span style="color: red;">重要</span>
+    <div class="text">{{todo.text|linebreaksbr}}</div>
+
+    <div class="completed" {% if todo.date_completed %} style="background-color: #CCCCFF; margin: 2px;
+    border-radius: 10px;" {% else %} style="background-color: #6666CC; margin: 2px;color: white;
+    border-radius: 10px;" {% endif %}>
+        {% if todo.date_completed %}
+        <span style="color: #669999;">已完成</span>
         {% else %}
-        <span style="color: blueviolet;">一般</span>
+        進行中
         {% endif %}
     </div>
 
