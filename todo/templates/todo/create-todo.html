@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+
+
+{% block content %}
+<h1>Create ToDo</h1>
+<form action="" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    {% if form %}
+    <button type="submit">提交</button>
+    <button type="reset">清除</button>
+    {% endif %}
+</form>
+{% endblock %}
