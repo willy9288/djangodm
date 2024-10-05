@@ -46,6 +46,15 @@
         .completed {
             margin-bottom: 3px;
         }
+
+        .del-button {
+            background-color: blueviolet;
+            color: aliceblue;
+            width: 30px;
+            height: 12px;
+            line-height: 12px;
+            font-size: small;
+        }
     </style>
 </head>
 {% endblock %}
@@ -54,8 +63,10 @@
 <h1>Todolist</h1>
 
 {% for todo in todos %}
+{% if not todo.completed %}
 <div class="todo">
     <div class="created">{{todo.created}}</div>
+    <a class="button del-button" href="{% url 'delete_todo' todo.id %}" onclick="return confirm('確定刪除?')">刪除</a>
     <div class="title">
         <a href="{% url 'todo' todo.id %}">{{todo.title}}
             {% if todo.important %}
@@ -68,7 +79,7 @@
     <div class="text">{{todo.text|linebreaksbr}}</div>
 
     <div class="completed" {% if todo.date_completed %} style="background-color: #CCCCFF; margin: 2px;
-    border-radius: 10px;" {% else %} style="background-color: #6666CC; margin: 2px;color: white;
+    border-radius: 10px;" {% else %} style="background-color: #000066; margin: 2px;color: white;
     border-radius: 10px;" {% endif %}>
         {% if todo.completed %}
         <span style="color: #669999;">已完成({{todo.date_completed}})</span>
@@ -78,7 +89,7 @@
     </div>
 
 </div>
-
+{% endif %}
 
 {% endfor %}
 

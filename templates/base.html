@@ -22,7 +22,7 @@
         }
 
         .username a {
-            color: #99CCCC;
+            color: #99CC99;
             text-decoration: none;
         }
 
@@ -50,7 +50,7 @@
 <body>
     <div id="navbar">
         {% if user.is_authenticated %}
-        使用者:<span class="username">
+        <span class="username">使用者:
             <a href="{% url 'profile' %}">{{user.username}}</a>
         </span>
 

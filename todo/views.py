@@ -6,6 +6,20 @@ from datetime import datetime
 # Create your views here.
 
 
+def delete_todo(request, id):
+    user = request.user
+    todo = None
+
+    try:
+        todo = Todo.objects.get(id=id, user=user)
+        todo.delete()
+
+    except Exception as e:
+        print(e)
+
+    return redirect("todolist")
+
+
 # 新增代辦
 def create_todo(request):
     msg = ""
@@ -21,6 +35,8 @@ def create_todo(request):
                 form = TodoForm(request.POST)
                 todo = form.save(commit=False)
                 todo.user = request.user
+                now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                todo.date_completed = now if todo.completed else None
                 todo.save()
                 msg = "提交成功"
                 return redirect("todolist")
@@ -34,8 +50,8 @@ def create_todo(request):
 # 檢視代辦
 def todo(request, id):
     msg = ""
-    todo = None
     user = request.user
+    todo = None
 
     try:
         todo = Todo.objects.get(id=id, user=user)
