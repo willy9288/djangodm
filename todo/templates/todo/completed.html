@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block style %}
+
+<head>
+    <style>
+        .todo {
+            display: inline-block;
+            width: 300px;
+            background-color: azure;
+            margin: 12px;
+            border-radius: 10px;
+        }
+
+        .title {
+            font-size: 24px;
+            margin: 6px 0;
+            color: #000066;
+        }
+
+        .title a {
+            text-decoration: none;
+        }
+
+        .text {
+            height: 100px;
+            text-align: center;
+            padding: 12px;
+            background-color: #99CCCC;
+            margin: 12px;
+            border-radius: 10px;
+        }
+
+        .imp {
+            text-align: right;
+            margin: 1px 12px;
+            color: blueviolet;
+        }
+
+        .created {
+            font-size: small;
+            text-align: left;
+            margin: 6px;
+        }
+
+        .completed {
+            margin-bottom: 3px;
+        }
+
+        .del-button {
+            background-color: blueviolet;
+            color: aliceblue;
+            width: 30px;
+            height: 12px;
+            line-height: 12px;
+            font-size: small;
+        }
+    </style>
+</head>
+{% endblock %}
+
+{% block content %}
+<h1>Completed</h1>
+
+{% for todo in todos %}
+{% if todo.completed %}
+<div class="todo">
+    <div class="created">{{todo.created}}</div>
+    <a class="button del-button" href="{% url 'delete_todo' todo.id %}" onclick="return confirm('確定刪除?')">刪除</a>
+    <div class="title">
+        <a href="{% url 'todo' todo.id %}">{{todo.title}}
+            {% if todo.important %}
+            <span style="color: #CC3333; font-size: 16px;">(重要)</span>
+            {% endif %}
+        </a>
+
+    </div>
+
+    <div class="text">{{todo.text|linebreaksbr}}</div>
+
+    <div class="completed" {% if todo.date_completed %} style="background-color: #CCCCFF; margin: 2px;
+    border-radius: 10px;" {% else %} style="background-color: #000066; margin: 2px;color: white;
+    border-radius: 10px;" {% endif %}>
+        {% if todo.completed %}
+        <span style="color: #669999;">已完成({{todo.date_completed}})</span>
+        {% else %}
+        進行中
+        {% endif %}
+    </div>
+
+</div>
+{% endif %}
+
+{% endfor %}
+
+{% endblock %}

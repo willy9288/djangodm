@@ -83,3 +83,14 @@ def todolist(request):
 
     print(todos)
     return render(request, "todo/todolist.html", {"todos": todos})
+
+
+def completed(request):
+    user = request.user
+    todos = None
+    if user.is_authenticated:
+        # 對應資料庫的user
+        todos = Todo.objects.filter(user=user)
+
+    print(todos)
+    return render(request, "todo/completed.html", {"todos": todos})
