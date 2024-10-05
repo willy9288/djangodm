@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #CCCCCC;
+        }
+
         #navbar {
             background-color: #336699;
             padding: 12px;
@@ -26,7 +32,15 @@
             border-radius: 10px;
             margin-left: 12px;
         }
+
+        #container {
+            text-align: center;
+
+        }
     </style>
+    {% block style %}
+
+    {% endblock %}
 </head>
 
 <body>
@@ -43,12 +57,13 @@
         {% endif %}
         <a style="background-color: #CCFFFF;" class="button" href="/">回首頁</a>
     </div>
+    <div id="container">
+        {% block content %}
 
-    {% block content %}
+        {% endblock %}
 
-    {% endblock %}
-
-    <div style="color: red;">{{msg}}</div>
+        <div style="color: red;">{{msg}}</div>
+    </div>
 
 </body>
 
