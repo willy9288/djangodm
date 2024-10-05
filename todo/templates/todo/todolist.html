@@ -16,6 +16,9 @@
             font-size: 24px;
             margin: 6px 0;
             color: #000066;
+        }
+
+        .title a {
             text-decoration: none;
         }
 
@@ -54,7 +57,7 @@
 <div class="todo">
     <div class="created">{{todo.created}}</div>
     <div class="title">
-        <a class="title" href="{% url 'todo' todo.id %}">{{todo.title}}
+        <a href="{% url 'todo' todo.id %}">{{todo.title}}
             {% if todo.important %}
             <span style="color: #CC3333; font-size: 16px;">(重要)</span>
             {% endif %}

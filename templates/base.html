@@ -19,6 +19,10 @@
 
         .username {
             color: #CC6600;
+        }
+
+        .username a {
+            color: #99CCCC;
             text-decoration: none;
         }
 
@@ -47,7 +51,7 @@
     <div id="navbar">
         {% if user.is_authenticated %}
         使用者:<span class="username">
-            <a class="username" href="{% url 'profile' %}">{{user.username}}</a>
+            <a href="{% url 'profile' %}">{{user.username}}</a>
         </span>
 
         <a class="button" href="{% url 'logout' %}">登出</a>
