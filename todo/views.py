@@ -5,6 +5,13 @@ from .models import Todo
 
 
 def todolist(request):
-    todos = Todo.objects.all()
-    # print(todos)
+
+    # 網頁端登入使用者的資訊
+    user = request.user
+    todos = None
+    if user.is_authenticated:
+        # 對應資料庫的user
+        todos = Todo.objects.filter(user=user)
+
+    print(todos)
     return render(request, "todo/todolist.html", {"todos": todos})

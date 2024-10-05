@@ -36,7 +36,8 @@ def user_login(request):
                 if user:
                     msg = "登入成功!"
                     login(request, user)
-                    return redirect("profile")
+                    # return redirect("profile")
+                    return redirect("todolist")
                 else:
                     msg = "帳號或密碼錯誤!"
 
